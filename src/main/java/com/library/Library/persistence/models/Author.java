@@ -12,14 +12,12 @@ public class Author {
     private long id;
     private String name;
     private String nationality;
-    private ArrayList<Book> books;
-
     public Author (Author author){
-        this(author.getId(), author.getName(), author.getNationality(), author.getBooks());
+        this(author.getId(), author.getName(), author.getNationality());
     }
 
     @Override
     public String toString(){
-        return ("id: " + this.id + ", name: " + this.name + ", address: " + this.nationality + ", books: "+ this.books.size());
+        return ("id: " + this.id + ", name: " + this.name + ", nationality: " + this.nationality );
     }
 }

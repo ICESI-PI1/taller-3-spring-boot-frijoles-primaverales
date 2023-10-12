@@ -21,7 +21,11 @@ public class BookRepositoryImpl implements IBookRepository {
 
     private List<Book> books = new ArrayList<>();
 
-    public BookRepositoryImpl() {super();this.books.add(new Book(1L,"AAA",null));}
+    public BookRepositoryImpl() {
+        super();
+        this.books.add(new Book(1L,"AAA",null));
+        this.books.add(new Book(2L,"ABC",null));
+    }
 
     @Override
     public Optional<Book> findById(Long id){
@@ -35,10 +39,20 @@ public class BookRepositoryImpl implements IBookRepository {
         
     }
 
+    private Optional<Book> findAuthorById(Long id){
+        Optional<Book> match = books.stream().filter(p-> Objects.equals(p.getAuthor().getId(), id)).findFirst();
+        if(match.isPresent()){
+            log.info("Author with id: "+id+" found: " + match.toString());
+        }else{
+            log.info("Author with id: "+id+" not found");
+        }
+        return match;
+    }
+
     @Override
     public Book save(Book book) {
         Book existingBook = findById(book.getId()).orElse(null);
-        if (existingBook == null){
+        if (existingBook == null && findAuthorById(book.getAuthor().getId()).isPresent()){
             books.add(book);
         }else{
             books.remove(existingBook);
@@ -47,19 +61,6 @@ public class BookRepositoryImpl implements IBookRepository {
         }
         log.info("Saving book" + book.toString());
         return book;
-    }
-
-    @Override
-    public void add(Book book) {
-        Book existingBook = findById(book.getId()).orElse(null);
-        if (existingBook == null){
-            books.add(book);
-        }else{
-            books.remove(existingBook);
-            Book newProject = new Book(book);
-            books.add(newProject);
-        }
-        log.info("Saving book: " + book.toString());
     }
 
     @Override

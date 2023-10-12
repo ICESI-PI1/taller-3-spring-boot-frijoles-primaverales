@@ -24,11 +24,6 @@ public class BookServiceImpl implements IBookService {
     return bookRepository.save(book);
   }
 
-  @Override
-  public void add(Book book) {
-    // TODO Auto-generated method stub
-    bookRepository.add(book);
-  }
 
   @Override
   public List<Book> getAllBooks() {

@@ -10,8 +10,6 @@ public interface IBookRepository {
 
     Book save(Book project);
 
-    void add(Book book);
-
     List<Book> getAllBooks();
 
     void deleteBook(Long id);

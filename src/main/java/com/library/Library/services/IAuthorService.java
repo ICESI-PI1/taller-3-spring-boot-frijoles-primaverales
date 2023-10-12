@@ -17,7 +17,7 @@ public interface IAuthorService {
 
     void deleteAuthor(Long id);
 
-    void addBook(Long id,Book book);
+    //void addBook(Long id,Book book);
 
-    String getBooks(Long id);
+    //String getBooks(Long id);
 }

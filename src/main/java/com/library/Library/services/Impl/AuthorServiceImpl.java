@@ -13,16 +13,8 @@ import java.util.Optional;
 @Service
 public class AuthorServiceImpl implements IAuthorService {
 
-    private BookServiceImpl bookService;
-
-
     @Autowired
     private IAuthorRepository authorRepository;
-
-    @Autowired
-    public AuthorServiceImpl(BookServiceImpl bookService) {
-        this.bookService = bookService;
-    }
 
     @Override
     public Optional<Author> findById(Long id) {
@@ -51,7 +43,7 @@ public class AuthorServiceImpl implements IAuthorService {
         // TODO Auto-generated method stub
         authorRepository.deleteAuthor(id);
     }
-
+/*
     @Override
     public void addBook(Long id,Book book) {
         bookService.add(book);
@@ -62,6 +54,8 @@ public class AuthorServiceImpl implements IAuthorService {
     public String getBooks(Long id) {
         return authorRepository.getBooks(id);
     }
+
+ */
 
     @Autowired
     public void setEditorialRepository(IAuthorRepository editorialRepository) {

@@ -23,6 +23,8 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
 
     public AuthorRepositoryImpl(){
         super();
+        this.authors.add(new Author(1L,"Gabriel García Márquez","Colombiano"));
+        this.authors.add(new Author(2L,"Julio Cortázar","Argentino"));
     }
 
     @Override
@@ -42,10 +44,10 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
         Author existingAuthor = findById(author.getId()).orElse(null);
         if (existingAuthor == null){
             authors.add(author);
-        }else{
+        }else {
             authors.remove(existingAuthor);
-            Author newEditorial = new Author(author);
-            authors.add(newEditorial);
+            Author newAuthor = new Author(author);
+            authors.add(newAuthor);
         }
         log.info("Saving author" + author.toString());
         return author;
@@ -58,8 +60,8 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
             authors.add(author);
         }else{
             authors.remove(existingAuthor);
-            Author newEditorial = new Author(author);
-            authors.add(newEditorial);
+            Author newAuthor = new Author(author);
+            authors.add(newAuthor);
         }
         log.info("Saving author: " + author.toString());
     }
@@ -81,17 +83,15 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
             log.info("Error, Author not found");
         }
     }
-
+/*
     @Override
     public void addBook(Long id, Book book) {
         Author existingAuthor = findById(id).orElse(null);
         if(existingAuthor!=null){
-            existingAuthor.getBooks().add(book);
             log.info("Book : "+book.toString()+ " added to Author: "+ existingAuthor.toString());
         }else{
             log.info("Author not found");
         }
-
     }
 
     @Override
@@ -112,4 +112,6 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
             return "Author not found";
         }
     }
+
+ */
 }
