@@ -14,4 +14,6 @@ public interface IBookRepository {
 
     void deleteBook(Long id);
 
+    List<Book> getAuthorBooks(Long id);
+
 }
