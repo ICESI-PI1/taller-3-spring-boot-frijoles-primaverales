@@ -1,6 +1,7 @@
 package com.library.Library;
 
 import com.library.Library.persistence.models.Book;
+import com.library.Library.security.WebSecurityConfig;
 import com.library.Library.services.IBookService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
