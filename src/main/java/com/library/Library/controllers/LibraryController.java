@@ -29,13 +29,21 @@ public class LibraryController {
 
     @PostMapping(path = "books")
     public String createBook( @RequestBody Book newBook){
-        Optional<Author> auxAuthor = authorService.findById(newBook.getAuthor().getId());
-        if(auxAuthor.isPresent()) {
-            bookService.save(newBook);
-            return "Book created";
-        }throw new ResponseStatusException(
+
+        if(newBook.getAuthor() != null){
+            Optional<Author> auxAuthor = authorService.findById(newBook.getAuthor().getId());
+            if(auxAuthor.isPresent()) {
+                newBook.setAuthor(auxAuthor.get());
+                bookService.save(newBook);
+                return "Book created";
+            }
+        }
+
+
+        throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Author does not exist"
         );
+
     }
 
     @GetMapping(path = "books/{id}")
@@ -50,14 +58,17 @@ public class LibraryController {
 
     @PutMapping(path = "books/{id}")
     public String updateBookById(@RequestBody Book newBook, @PathVariable("id") Long id){
-        if(bookService.findById(id).isPresent()) {
-            Book book = bookService.findById(id).get();
-            book.setAuthor(newBook.getAuthor());
-            book.setTitle(newBook.getTitle());
+        if(newBook.getAuthor() != null) {
+            Optional<Author> auxAuthor = authorService.findById(newBook.getAuthor().getId());
+            if (bookService.findById(id).isPresent() && auxAuthor.isPresent()) {
+                Book book = bookService.findById(id).get();
+                book.setAuthor(auxAuthor.get());
+                book.setTitle(newBook.getTitle());
 
-            bookService.save(book);
+                bookService.save(book);
 
-            return "Book modified";
+                return "Book modified";
+            }
         }
         throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "entity not found"

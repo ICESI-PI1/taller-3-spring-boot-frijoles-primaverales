@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookRepositoryImpl implements IBookRepository {
@@ -39,20 +40,11 @@ public class BookRepositoryImpl implements IBookRepository {
         
     }
 
-    private Optional<Book> findAuthorById(Long id){
-        Optional<Book> match = books.stream().filter(p-> Objects.equals(p.getAuthor().getId(), id)).findFirst();
-        if(match.isPresent()){
-            log.info("Author with id: "+id+" found: " + match.toString());
-        }else{
-            log.info("Author with id: "+id+" not found");
-        }
-        return match;
-    }
 
     @Override
     public Book save(Book book) {
         Book existingBook = findById(book.getId()).orElse(null);
-        if (existingBook == null && findAuthorById(book.getAuthor().getId()).isPresent()){
+        if (existingBook == null){
             books.add(book);
         }else{
             books.remove(existingBook);
@@ -84,7 +76,13 @@ public class BookRepositoryImpl implements IBookRepository {
 
     @Override
     public List<Book> getAuthorBooks(Long id) {
-        return books.stream().filter(p-> Objects.equals(p.getAuthor().getId(), id)).toList();
+
+        return books.stream()
+                .filter(book -> {
+                    Author author = book.getAuthor();
+                    return author != null && Objects.equals(author.getId(), id);
+                })
+                .collect(Collectors.toList());
     }
 
 }
