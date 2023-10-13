@@ -23,8 +23,6 @@ public class AuthorRepositoryImpl implements IAuthorRepository {
 
     public AuthorRepositoryImpl(){
         super();
-        this.authors.add(new Author(1L,"Gabriel García Márquez","Colombiano"));
-        this.authors.add(new Author(2L,"Julio Cortázar","Argentino"));
     }
 
     @Override

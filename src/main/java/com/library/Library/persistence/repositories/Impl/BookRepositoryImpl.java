@@ -24,8 +24,6 @@ public class BookRepositoryImpl implements IBookRepository {
 
     public BookRepositoryImpl() {
         super();
-        this.books.add(new Book(1L,"AAA",null));
-        this.books.add(new Book(2L,"ABC",null));
     }
 
     @Override
